@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lelexeneize.github.io/angela/sitemap.xml
