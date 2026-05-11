@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuatro Soles | Ezeiza - Alojamiento Premium</title>
+    <meta name="description"
+        content="Cuatro Soles en Ezeiza. El mejor alojamiento cerca del Aeropuerto de Ezeiza. Confort, traslados y atención 24h.">
+    <meta name="keywords"
+        content="cuatro soles ezeiza, alojamiento en ezeiza, hotel cerca de ezeiza, cuatro soles apart, cuatrosoles">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Animaciones Espectaculares */
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Hero Section con Imagen 849885122.jpg */
+        .hero-img {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('849885122.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .img-hover {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .img-hover:hover {
+            transform: scale(1.02);
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 5px;
+        }
+
+        /* Animación de Pulso para Reserva */
+        .pulse-anim {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+
+        /* Carrusel de Reseñas */
+        .review-card {
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.8s ease;
+            transform: translateX(20px);
+        }
+
+        .review-card.active {
+            pointer-events: auto;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Estilos Lightbox y Modales */
+        #gallery-overlay.hidden,
+        #reservation-modal.hidden {
+            display: none;
+        }
+
+        #gallery-overlay.flex,
+        #reservation-modal.flex {
+            display: flex;
+        }
+
+        details>summary {
+            list-style: none;
+            outline: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 transition-all duration-500 px-4 md:px-8 py-4" id="navbar">
+        <div
+            class="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex justify-between items-center shadow-2xl border border-white/50">
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col">
+                    <h1 class="text-xl md:text-2xl font-black text-amber-600 tracking-tighter leading-none">CUATRO<span
+                            class="text-slate-800 font-extrabold tracking-normal">SOLES</span></h1>
+                    <span class="text-[10px] tracking-[0.15em] font-bold text-amber-400">★★★★</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex gap-8 font-bold text-slate-500 text-xs uppercase tracking-widest">
+                <a href="#galeria" class="hover:text-amber-500 transition-colors">Galería</a>
+                <a href="#tarifas" class="hover:text-amber-500 transition-colors">Tarifas</a>
+                <a href="#servicios-completos" class="hover:text-amber-500 transition-colors">Servicios</a>
+                <a href="#reseñas" class="hover:text-amber-500 transition-colors">Opiniones</a>
+                <a href="#detalles" class="hover:text-amber-500 transition-colors">Normas</a>
+            </div>
+
+            <button onclick="openModal()"
+                class="bg-amber-500 text-white px-6 py-2.5 rounded-full font-black text-xs uppercase shadow-lg shadow-amber-500/30 hover:bg-amber-600 hover:-translate-y-0.5 transition-all">
+                Reservar
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative h-[90vh] hero-img flex items-center justify-center text-center px-4">
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="relative z-10 max-w-5xl fade-in-up">
+            <span
+                class="bg-amber-500 text-white px-5 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-8 inline-block shadow-xl">A
+                solo 1.2 KM del Aeropuerto de Ezeiza</span>
+            <h2
+                class="text-6xl md:text-9xl font-black text-white mb-6 leading-none drop-shadow-2xl italic tracking-tighter">
+                Apart <br><span class="text-amber-400 not-italic">Airport</span>
+            </h2>
+            <p class="text-xl md:text-2xl text-slate-100 mb-12 font-medium max-w-2xl mx-auto leading-relaxed">
+                Naturaleza forestada, confort de lujo y atención servicial diseñada para tu descanso total.
+            </p>
+            <div class="flex flex-col md:flex-row gap-5 justify-center">
+                <button onclick="openModal()"
+                    class="bg-white text-slate-900 px-10 py-5 rounded-2xl font-black text-lg hover:bg-amber-500 hover:text-white transition-all shadow-2xl pulse-anim flex items-center justify-center gap-3">
+                    RESERVAR AHORA <i class="fa-solid fa-calendar-check"></i>
+                </button>
+                <button onclick="openGallery(0)"
+                    class="glass text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white hover:text-slate-900 transition-all border border-white/30">
+                    VER FOTOS
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white py-12 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 text-center">
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-plane-arrival text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">Traslado
+                        Gratis</span>
+                </div>
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-paw text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">Mascotas
+                        Gratis</span>
+                </div>
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-wifi text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">WiFi 500MB</span>
+                </div>
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-car text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">Parking
+                        Privado</span>
+                </div>
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-mug-hot text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">Desayuno</span>
+                </div>
+                <div class="flex flex-col items-center group w-28">
+                    <div
+                        class="bg-amber-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-amber-500 transition-colors">
+                        <i class="fa-solid fa-clock text-amber-500 text-2xl group-hover:text-white"></i>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-500 tracking-tighter">Atención 24h</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarifas" class="bg-slate-50 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-4xl font-black text-slate-800 mb-10 tracking-tighter">Tarifas y Disponibilidad</h3>
+            <div class="bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-slate-200">
+                <div class="grid grid-cols-1 lg:grid-cols-12 p-10 gap-10 items-center">
+                    <div
+                        class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-slate-100 pb-10 lg:pb-0 lg:pr-10">
+                        <h4 class="font-black text-amber-600 text-3xl mb-3">Apartamento de 2 Dormitorios</h4>
+                        <p class="text-slate-500 mb-6 text-sm">Capacidad total para 7 huéspedes. Ambientes amplios con
+                            luz natural y vistas al jardín forestado.</p>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest"><i
+                                    class="fa-solid fa-bed mr-2"></i>Dormitorio 1: 4 Camas Individuales</p>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest"><i
+                                    class="fa-solid fa-bed mr-2"></i>Dormitorio 2: 1 Cama Doble + 1 Individual</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-4 space-y-6">
+                        <div class="bg-green-50 p-6 rounded-[2rem] border border-green-100 shadow-sm">
+                            <p class="text-green-800 font-black text-lg mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-wallet"></i> Opciones de Pago:
+                            </p>
+                            <ul class="text-green-700 text-sm font-bold space-y-2">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check mt-1"></i> Sin
+                                    pago por adelantado - Pagás directamente en el alojamiento.</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check mt-1"></i> O pago
+                                    por MercadoPago Online para confirmar tu reserva.</li>
+                            </ul>
+                        </div>
+                        <div
+                            class="flex items-center gap-3 text-amber-600 font-bold text-sm bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                            <i class="fa-solid fa-credit-card-slash"></i> No es necesaria tarjeta de crédito para
+                            reservar.
+                        </div>
+                    </div>
+                    <div class="lg:col-span-4 text-center lg:text-right">
+                        <p class="text-xs text-slate-400 uppercase font-black tracking-widest mb-2">Precio de Referencia
+                        </p>
+                        <p class="text-5xl font-black text-slate-800 tracking-tighter mb-2">$130.000 - $180.000</p>
+                        <p class="text-xs text-slate-400 font-bold uppercase mb-8">Pesos Argentinos (ARS)</p>
+                        <button onclick="openModal()"
+                            class="w-full bg-blue-600 text-white py-5 rounded-[1.5rem] font-black text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/20 uppercase tracking-tighter">
+                            Consultar Disponibilidad
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="max-w-7xl mx-auto px-4 py-12 relative">
+        <div
+            class="grid grid-cols-1 md:grid-cols-4 gap-4 h-[600px] overflow-hidden rounded-[3rem] border border-slate-200 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.1)]">
+            <div class="md:col-span-2 md:row-span-2 h-full">
+                <img src="849885121.jpg" onclick="openGallery(0)" class="w-full h-full object-cover img-hover"
+                    alt="Foto Principal">
+            </div>
+            <div class="h-full"><img src="849885128.jpg" onclick="openGallery(1)"
+                    class="w-full h-full object-cover img-hover"></div>
+            <div class="h-full"><img src="849885124.jpg" onclick="openGallery(2)"
+                    class="w-full h-full object-cover img-hover"></div>
+            <div class="h-full"><img src="849885130.jpg" onclick="openGallery(3)"
+                    class="w-full h-full object-cover img-hover"></div>
+            <div class="h-full"><img src="849885129.jpg" onclick="openGallery(4)"
+                    class="w-full h-full object-cover img-hover"></div>
+        </div>
+
+        <button onclick="openGallery(0)"
+            class="absolute bottom-16 right-10 bg-white border border-slate-900 text-slate-900 px-8 py-3 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition shadow-2xl flex items-center gap-3">
+            <i class="fa-solid fa-grip-vertical"></i> Mostrar las 14 fotos
+        </button>
+    </section>
+
+    <section id="servicios-completos" class="max-w-7xl mx-auto px-6 py-20 border-t border-slate-100">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-16 gap-4">
+            <h3 class="text-4xl font-black text-slate-800 tracking-tighter leading-none uppercase">Todos
+                nuestros<br><span class="text-amber-500">Servicios</span></h3>
+            <p class="text-slate-400 font-bold max-w-sm uppercase text-[10px] tracking-[0.3em]">Todo lo que necesitas
+                para una estancia perfecta a minutos de Ezeiza.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div>
+                <h4
+                    class="font-black text-slate-800 mb-6 flex items-center gap-3 border-b border-amber-100 pb-3 uppercase text-xs tracking-widest">
+                    <i class="fa-solid fa-utensils text-amber-500"></i> Gastronomía
+                </h4>
+                <ul class="text-sm text-slate-600 font-bold space-y-4">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Cafetería en el
+                        lugar</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Bar y Minibar
+                    </li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Desayuno
+                        continental</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Opción desayuno
+                        para llevar</li>
+                </ul>
+            </div>
+            <div>
+                <h4
+                    class="font-black text-slate-800 mb-6 flex items-center gap-3 border-b border-amber-100 pb-3 uppercase text-xs tracking-widest">
+                    <i class="fa-solid fa-concierge-bell text-amber-500"></i> Recepción
+                </h4>
+                <ul class="text-sm text-slate-600 font-bold space-y-4">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Recepción 24
+                        horas</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Registro de
+                        entrada privado</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Proporciona
+                        factura</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-language text-blue-500"></i> ES / EN / PT
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4
+                    class="font-black text-slate-800 mb-6 flex items-center gap-3 border-b border-amber-100 pb-3 uppercase text-xs tracking-widest">
+                    <i class="fa-solid fa-shield-halved text-amber-500"></i> Seguridad
+                </h4>
+                <ul class="text-sm text-slate-600 font-bold space-y-4">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Cámaras
+                        externas</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Caja fuerte y
+                        Seguridad 24h</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Parking Privado
+                        Gratis</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Zonas de
+                        fumadores</li>
+                </ul>
+            </div>
+            <div>
+                <h4
+                    class="font-black text-slate-800 mb-6 flex items-center gap-3 border-b border-amber-100 pb-3 uppercase text-xs tracking-widest">
+                    <i class="fa-solid fa-leaf text-amber-500"></i> Exteriores
+                </h4>
+                <ul class="text-sm text-slate-600 font-bold space-y-4">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Jardín de 50 m²
+                    </li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Mobiliario
+                        exterior</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Zona de pícnic
+                    </li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Salón de uso
+                        común</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="reseñas" class="max-w-7xl mx-auto px-6 py-24 bg-slate-50 border-y border-slate-200">
+        <div class="grid lg:grid-cols-3 gap-20 items-center">
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-6 mb-12">
+                    <div
+                        class="bg-blue-600 text-white font-black text-6xl px-8 py-5 rounded-[2rem] shadow-2xl shadow-blue-500/30">
+                        10</div>
+                    <div>
+                        <p class="font-black text-3xl tracking-tighter uppercase italic">Excepcional</p>
+                        <p class="text-slate-400 font-black text-xs uppercase tracking-[0.2em] mt-1">Puntuación basada
+                            en el confort real.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Personal</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Ubicación</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Limpieza</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Relación Calidad-Precio</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Confort</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div
+                            class="flex justify-between text-[10px] font-black uppercase text-slate-700 tracking-widest">
+                            <span>Instalaciones</span><span>10.0</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                            <div class="bg-blue-600 h-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white rounded-[3.5rem] shadow-2xl p-12 h-[380px] relative overflow-hidden border border-slate-100">
+                <div class="absolute -top-10 -right-10 bg-amber-50 w-32 h-32 rounded-full opacity-50"></div>
+                <div id="review-slider" class="relative h-full">
+                    <div class="review-card active absolute inset-0">
+                        <i class="fa-solid fa-quote-left text-amber-500 text-4xl mb-6 opacity-30"></i>
+                        <p class="text-slate-600 italic leading-relaxed text-lg font-medium">"El colchón es impecable,
+                            descansamos muy bien. Nos tenían preparado el desayuno a las 5 AM porque salía nuestro
+                            vuelo. Excelente atención de Ángela."</p>
+                        <div class="mt-10 flex items-center gap-4">
+                            <div
+                                class="bg-amber-100 text-amber-700 w-12 h-12 rounded-full flex items-center justify-center font-black">
+                                S</div>
+                            <div>
+                                <p class="font-black text-slate-800 text-sm">Soledad</p>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Argentina 🇦🇷
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card absolute inset-0">
+                        <i class="fa-solid fa-quote-left text-amber-500 text-4xl mb-6 opacity-30"></i>
+                        <p class="text-slate-600 italic leading-relaxed text-lg font-medium">"Ubicación inmejorable para
+                            conectar Ezeiza. Ángela es una genia, servicial y predispuesta. Todo muy seguro y limpio.
+                            Volveremos sin dudas."</p>
+                        <div class="mt-10 flex items-center gap-4">
+                            <div
+                                class="bg-amber-100 text-amber-700 w-12 h-12 rounded-full flex items-center justify-center font-black">
+                                R</div>
+                            <div>
+                                <p class="font-black text-slate-800 text-sm">Ricardo</p>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Brasil 🇧🇷
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="detalles" class="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-3 gap-20">
+        <div class="lg:col-span-2 space-y-16">
+            <div class="bg-blue-50 border border-blue-100 rounded-[3rem] p-12 shadow-inner relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-10"><i
+                        class="fa-solid fa-star text-blue-900 text-9xl"></i></div>
+                <h4 class="font-black text-3xl text-slate-800 mb-6 tracking-tighter">Puntos Fuertes</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flex items-start gap-4">
+                        <i class="fa-solid fa-location-dot text-blue-600 text-2xl mt-1"></i>
+                        <div>
+                            <p class="font-black text-slate-800 uppercase text-xs tracking-widest mb-1 italic">Ubicación
+                                Estratégica</p>
+                            <p class="text-slate-600 text-sm font-medium">A solo 1.2 km de la terminal. Los viajeros le
+                                dan puntuación de 10.0.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i class="fa-solid fa-mug-saucer text-blue-600 text-2xl mt-1"></i>
+                        <div>
+                            <p class="font-black text-slate-800 uppercase text-xs tracking-widest mb-1 italic">Desayuno
+                                Adaptado</p>
+                            <p class="text-slate-600 text-sm font-medium">Opción continental o para llevar si viajas de
+                                madrugada (5 AM).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-[3rem] p-12 shadow-sm">
+                <h3 class="text-3xl font-black mb-10 text-slate-800 tracking-tighter">Normas y Condiciones</h3>
+                <div class="grid gap-10">
+                    <div class="flex gap-6 border-b border-slate-100 pb-8">
+                        <i class="fa-solid fa-clock text-amber-500 text-2xl w-8"></i>
+                        <div>
+                            <p class="font-black text-slate-800 uppercase text-xs tracking-widest mb-2">Check-in y
+                                Check-out</p>
+                            <p class="text-slate-600 text-sm leading-relaxed"><b>Entrada:</b> Disponible las 24 horas
+                                (previo aviso de horario).<br><b>Salida:</b> Entre las 08:00 y las 12:30.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 border-b border-slate-100 pb-8">
+                        <i class="fa-solid fa-child text-amber-500 text-2xl w-8"></i>
+                        <div>
+                            <p class="font-black text-slate-800 uppercase text-xs tracking-widest mb-2">Niños y Cunas
+                            </p>
+                            <p class="text-slate-600 text-sm mb-4 leading-relaxed">Se pueden alojar niños de cualquier
+                                edad. No hay edad mínima para el ingreso.</p>
+                            <div
+                                class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex justify-between items-center max-w-sm">
+                                <span class="font-bold text-slate-700 text-xs">0 - 3 años</span>
+                                <span
+                                    class="bg-green-100 text-green-700 font-black px-4 py-1 rounded-lg text-[10px] uppercase">Cuna
+                                    Gratis</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <i class="fa-solid fa-ban-smoking text-amber-500 text-2xl w-8"></i>
+                        <div>
+                            <p class="font-black text-slate-800 uppercase text-xs tracking-widest mb-2">Prohibiciones
+                            </p>
+                            <p class="text-slate-600 text-sm leading-relaxed">No se puede fumar en las instalaciones.
+                                Prohibidas despedidas de soltero/a, fiestas o eventos similares.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-3xl font-black mb-8 text-slate-800 tracking-tighter">Preguntas Frecuentes</h3>
+                <details class="bg-white border border-slate-200 rounded-[1.5rem] p-6 group cursor-pointer shadow-sm">
+                    <summary
+                        class="font-black text-slate-800 text-sm uppercase tracking-widest flex justify-between items-center">
+                        ¿Cuatro Soles gusta a las familias?
+                        <i
+                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-6 italic">Sí, las
+                        familias valoran mucho el jardín de 50 m², los juegos de mesa para niños y el entorno tranquilo
+                        y seguro que ofrecemos.</p>
+                </details>
+                <details class="bg-white border border-slate-200 rounded-[1.5rem] p-6 group cursor-pointer shadow-sm">
+                    <summary
+                        class="font-black text-slate-800 text-sm uppercase tracking-widest flex justify-between items-center">
+                        ¿Cómo funciona el servicio de traslado?
+                        <i
+                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-6 italic">El
+                        servicio es gratuito desde y hacia el Aeropuerto de Ezeiza. Solo debes avisar tu horario de
+                        llegada con antelación para que podamos coordinar tu búsqueda.</p>
+                </details>
+            </div>
+        </div>
+
+        <div class="space-y-10">
+            <div class="glass p-12 rounded-[3.5rem] shadow-2xl border border-white/50 sticky top-28">
+                <div class="relative w-28 h-28 mx-auto mb-8">
+                    <img src="https://ui-avatars.com/api/?name=Angela&background=f59e0b&color=fff&size=200"
+                        class="w-full h-full rounded-full shadow-2xl border-4 border-amber-400 p-1">
+                    <div
+                        class="absolute -bottom-2 -right-2 bg-blue-600 text-white font-black text-sm p-3 rounded-2xl shadow-xl">
+                        10</div>
+                </div>
+                <h4 class="text-center text-2xl font-black tracking-tighter mb-2">Ángela Rufino</h4>
+                <p class="text-center text-slate-400 text-[10px] uppercase font-black tracking-[0.2em] mb-8">Anfitriona
+                    Excepcional</p>
+                <p class="text-center text-slate-600 text-sm font-medium italic mb-10 leading-relaxed leading-relaxed">
+                    "Servicial y predispuesta. Te espero en este ecosistema forestado para que descanses antes de tu
+                    próximo vuelo."</p>
+
+                <div class="space-y-4">
+                    <button onclick="openModal()"
+                        class="w-full bg-blue-600 text-white py-5 rounded-[1.5rem] font-black text-sm uppercase shadow-xl hover:bg-blue-700 transition">Solicitar
+                        mi lugar</button>
+                    <a href="https://wa.me/5491161552476" target="_blank"
+                        class="block w-full bg-[#25D366] text-white text-center py-5 rounded-[1.5rem] font-black text-sm uppercase shadow-xl hover:opacity-90 transition flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Directo
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-sm overflow-hidden relative">
+                <div class="absolute -bottom-10 -left-10 bg-blue-50 w-24 h-24 rounded-full opacity-50"></div>
+                <h4 class="font-black text-slate-800 mb-8 uppercase text-xs tracking-[0.3em]">Alrededores</h4>
+                <ul class="space-y-6 text-xs font-bold text-slate-500">
+                    <li class="flex justify-between items-center group">
+                        <span class="group-hover:text-amber-600 transition">Aeropuerto Ezeiza</span>
+                        <span
+                            class="bg-amber-50 text-amber-600 px-3 py-1 rounded-full text-[10px] border border-amber-100 font-black">1.2
+                            km</span>
+                    </li>
+                    <li class="flex justify-between items-center group">
+                        <span class="group-hover:text-amber-600 transition">Urball PaintBall</span>
+                        <span class="bg-slate-50 text-slate-400 px-3 py-1 rounded-full text-[10px] font-black">2.6
+                            km</span>
+                    </li>
+                    <li class="flex justify-between items-center group">
+                        <span class="group-hover:text-amber-600 transition">Havanna / Starbucks</span>
+                        <span class="bg-slate-50 text-slate-400 px-3 py-1 rounded-full text-[10px] font-black">7.0
+                            km</span>
+                    </li>
+                    <li class="flex justify-between items-center group">
+                        <span class="group-hover:text-amber-600 transition">Aeroparque Jorge Newbery</span>
+                        <span class="bg-slate-50 text-slate-400 px-3 py-1 rounded-full text-[10px] font-black">31.0
+                            km</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="mapa" class="w-full h-[500px] relative border-t border-slate-200">
+        <iframe
+            src="https://maps.google.com/maps?q=Jos%C3%A9%20Ingenieros%2079%2C%20Ezeiza&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <div
+            class="absolute top-8 left-1/2 -translate-x-1/2 z-10 glass px-8 py-4 rounded-[2rem] shadow-2xl border border-white/50 flex items-center gap-4 hover:scale-105 transition-transform cursor-default">
+            <div class="bg-amber-100 w-12 h-12 rounded-full flex items-center justify-center shadow-inner">
+                <i class="fa-solid fa-map-location-dot text-amber-500 text-xl"></i>
+            </div>
+            <div class="text-left">
+                <h4 class="font-black text-slate-800 uppercase tracking-widest text-sm leading-none mb-1">Nuestra
+                    Ubicación</h4>
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">José Ingenieros 79, Ezeiza
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-500 py-24 text-center border-t-8 border-amber-500">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-white font-black text-4xl mb-2 tracking-tighter uppercase italic">Cuatro Soles</h2>
+            <p class="text-amber-400 text-xl mb-6 tracking-[0.3em]">★★★★</p>
+            <div class="flex flex-wrap justify-center gap-10 text-xs font-black uppercase tracking-widest mb-12">
+                <span class="text-white">José Ingenieros 79, Ezeiza</span>
+                <span>+54 9 11 6155-2476</span>
+                <span>angela-rufino10@hotmail.com</span>
+            </div>
+            <div class="flex justify-center gap-12 text-[10px] uppercase font-black tracking-[0.4em] mb-16 opacity-40">
+                <span>Registro Privado</span>
+                <span>Seguridad 24h</span>
+                <span>Pet Friendly</span>
+            </div>
+            <p class="text-[9px] opacity-20">© 2026 - DISEÑADO CON ❤️ PARA CUATRO SOLES APART AIRPORT.</p>
+        </div>
+    </footer>
+
+    <div id="gallery-overlay" class="fixed inset-0 z-[110] hidden bg-black/98 items-center justify-center p-4">
+        <button onclick="closeGallery()"
+            class="absolute top-10 right-10 text-white text-6xl hover:text-amber-500 transition-all font-light">&times;</button>
+        <button onclick="prevImg()" class="absolute left-6 text-white text-5xl hover:text-amber-500 transition-all"><i
+                class="fa-solid fa-chevron-left"></i></button>
+        <div class="max-w-6xl w-full text-center">
+            <img id="main-gallery-img" src=""
+                class="max-h-[85vh] mx-auto rounded-3xl shadow-[0_0_80px_rgba(255,255,255,0.1)] border-4 border-white/5 object-contain transition-opacity duration-300">
+            <p id="gallery-counter"
+                class="text-white mt-10 font-black tracking-[0.5em] text-2xl uppercase italic drop-shadow-lg"></p>
+        </div>
+        <button onclick="nextImg()" class="absolute right-6 text-white text-5xl hover:text-amber-500 transition-all"><i
+                class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div id="reservation-modal"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div
+            class="bg-white w-full max-w-xl rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.4)] overflow-hidden relative fade-in-up">
+            <button onclick="closeModal()"
+                class="absolute top-10 right-10 text-slate-400 text-3xl hover:text-slate-900 transition-all">&times;</button>
+            <div class="bg-amber-500 p-12 text-white">
+                <h3 class="text-4xl font-black tracking-tighter mb-2 italic leading-none uppercase">Solicitar mi Reserva
+                </h3>
+                <p class="opacity-90 font-bold uppercase text-[10px] tracking-widest mt-4">Respuesta inmediata por
+                    Ángela Rufino.</p>
+            </div>
+            <form id="bookingForm" class="p-12 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label
+                            class="block text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Llegada</label>
+                        <input type="date" id="checkin" required
+                            class="w-full border-2 border-slate-100 bg-slate-50 p-5 rounded-[1.5rem] outline-none focus:border-amber-500 transition-all font-bold">
+                    </div>
+                    <div class="space-y-2">
+                        <label
+                            class="block text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Salida</label>
+                        <input type="date" id="checkout" required
+                            class="w-full border-2 border-slate-100 bg-slate-50 p-5 rounded-[1.5rem] outline-none focus:border-amber-500 transition-all font-bold">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label
+                        class="block text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Huéspedes</label>
+                    <select id="guests"
+                        class="w-full border-2 border-slate-100 bg-slate-50 p-5 rounded-[1.5rem] outline-none focus:border-amber-500 transition-all font-bold">
+                        <option>1 Huésped</option>
+                        <option>2 Huéspedes</option>
+                        <option>3 Huéspedes</option>
+                        <option>4 Huéspedes</option>
+                        <option>5 Huéspedes</option>
+                        <option>6 Huéspedes</option>
+                        <option>7 Huéspedes</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Nombre
+                        Completo</label>
+                    <input type="text" id="name" placeholder="Tu nombre..." required
+                        class="w-full border-2 border-slate-100 bg-slate-50 p-5 rounded-[1.5rem] outline-none focus:border-amber-500 transition-all font-bold">
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-6 rounded-[2rem] font-black text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/40 uppercase tracking-tighter italic">
+                    Enviar Consulta a Ángela <i class="fa-brands fa-whatsapp ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Listado de las 14 fotos en el directorio
+        const allPhotos = [
+            '849885121.jpg', '849885128.jpg', '849885124.jpg', '849885130.jpg',
+            '849885129.jpg', '849885125.jpg', '849885127.jpg', '849885122.jpg',
+            '849885099.jpg', '849885132.jpg', '849885123.jpg', '849885126.jpg',
+            '849885864.jpg', '849886333.jpg'
+        ];
+        let currentIdx = 0;
+
+        // Lógica de Galería (Lightbox)
+        function openGallery(idx) {
+            currentIdx = idx;
+            document.getElementById('gallery-overlay').classList.replace('hidden', 'flex');
+            updateGalleryUI();
+        }
+        function closeGallery() { document.getElementById('gallery-overlay').classList.replace('flex', 'hidden'); }
+        function nextImg() { currentIdx = (currentIdx + 1) % allPhotos.length; updateGalleryUI(); }
+        function prevImg() { currentIdx = (currentIdx - 1 + allPhotos.length) % allPhotos.length; updateGalleryUI(); }
+        function updateGalleryUI() {
+            const img = document.getElementById('main-gallery-img');
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.src = allPhotos[currentIdx];
+                document.getElementById('gallery-counter').innerText = `${currentIdx + 1} / ${allPhotos.length}`;
+                img.style.opacity = '1';
+            }, 100);
+        }
+
+        // Lógica de Modales
+        function openModal() { document.getElementById('reservation-modal').classList.replace('hidden', 'flex'); }
+        function closeModal() { document.getElementById('reservation-modal').classList.replace('flex', 'hidden'); }
+
+        // WhatsApp Booking Message
+        document.getElementById('bookingForm').onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const guests = document.getElementById('guests').value;
+
+            const msg = `Hola Ángela! Soy ${name}. Quiero consultar disponibilidad para hospedarme en Cuatro Soles.%0A📅 Llegada: ${checkin}%0A📅 Salida: ${checkout}%0A👥 Huéspedes: ${guests}.`;
+            window.open(`https://wa.me/5491161552476?text=${msg}`, '_blank');
+        };
+
+        // Efecto Navbar al hacer Scroll
+        window.onscroll = () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                nav.classList.add('py-2', 'px-4');
+                nav.classList.remove('py-4', 'px-8');
+            } else {
+                nav.classList.add('py-4', 'px-8');
+                nav.classList.remove('py-2', 'px-4');
+            }
+        };
+
+        // Carrusel de Reseñas Automático
+        const reviews = document.querySelectorAll('.review-card');
+        let rIdx = 0;
+        setInterval(() => {
+            reviews[rIdx].classList.remove('active');
+            rIdx = (rIdx + 1) % reviews.length;
+            reviews[rIdx].classList.add('active');
+        }, 6000);
+    </script>
+</body>
+
+</html>
